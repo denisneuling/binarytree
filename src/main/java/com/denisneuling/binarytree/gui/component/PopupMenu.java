@@ -12,10 +12,15 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.denisneuling.binarytree.gui.MainFrame;
+
 @Component
 public class PopupMenu extends JPopupMenu implements ActionListener,InitializingBean{
 	private static final long serialVersionUID = -5478903794243320305L;
 	protected Logger log = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private MainFrame mainFrame;
 	
 	@Autowired
 	private BinaryTreeEditorPane binaryTreeEditorPane;
@@ -25,9 +30,9 @@ public class PopupMenu extends JPopupMenu implements ActionListener,Initializing
 	private JMenuItem remove;
 	
 	public PopupMenu(){
-		add = new JMenuItem("Add");
-		edit = new JMenuItem("Edit");
-		remove = new JMenuItem("Remove");
+		add = new JMenuItem("Add Node");
+		edit = new JMenuItem("Edit Node");
+		remove = new JMenuItem("Remove Node");
 		
 		this.add(add);
 		this.add(edit);
@@ -57,6 +62,7 @@ public class PopupMenu extends JPopupMenu implements ActionListener,Initializing
 	}
 	
 	public void relocate(Point point){
-		this.setLocation((int)point.getX() - 30, (int)point.getY() + 60);
+		Point mainFrameLocation = mainFrame.getLocation();
+		this.setLocation((int)(mainFrameLocation.getX() + point.getX()) - 30, (int)(mainFrameLocation.getY() + point.getY()) + 40);
 	}
 }

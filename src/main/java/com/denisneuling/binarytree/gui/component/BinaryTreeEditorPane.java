@@ -100,9 +100,8 @@ public class BinaryTreeEditorPane extends JPanel implements InitializingBean, Mo
 		g.setColor(getForeground()); // set color and fonts
 		Font MyFont = new Font("SansSerif", Font.PLAIN, 10);
 		g.setFont(MyFont);
-		int xs = 10; // where to start printing on the panel
+//		int xs = 10; // where to start printing on the panel
 		int ys = 20;
-		g.drawString("Binary Search tree for the input string:\n", xs, ys);
 		ys = ys + 10;
 		// int start = 0;
 		// print input string on panel, 150 chars per line
