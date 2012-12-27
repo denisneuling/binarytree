@@ -1,4 +1,4 @@
-package com.denisneuling.binarytree.io;
+package com.denisneuling.binarytree.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,18 +11,17 @@ import java.io.ObjectOutputStream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.model.Tree;
+import com.denisneuling.binarytree.model.BinaryTree;
 
 @Component
-public class TreeMaterializer {
+public class TreeMaterializationService {
 
-	@Value("${defaults.file.extension}")
+	@Value("${defaults.ser.extension}")
 	private String extension;
 	
-	public void serializeTo(String path, Tree tree) {
-		File f = new File(path);
+	public void serializeTo(File file, BinaryTree tree) {
 		try {
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(f));
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
 			objectOutputStream.writeObject(tree);
 			objectOutputStream.close();
 		} catch (FileNotFoundException e) {
@@ -32,14 +31,13 @@ public class TreeMaterializer {
 		}
 	}
 
-	public Tree deserializeFrom(String path) {
-		File f = new File(path);
+	public BinaryTree deserializeFrom(File file) {
 		ObjectInputStream objectInputStream = null;
 		try {
-			objectInputStream = new ObjectInputStream(new FileInputStream(f));
+			objectInputStream = new ObjectInputStream(new FileInputStream(file));
 			Object object = objectInputStream.readObject();
-			if(Tree.class.equals(object.getClass())){
-				return (Tree)object;
+			if(BinaryTree.class.equals(object.getClass())){
+				return (BinaryTree)object;
 			}else{
 				throw new RuntimeException();
 			}

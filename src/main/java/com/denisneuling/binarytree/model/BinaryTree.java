@@ -1,10 +1,12 @@
 package com.denisneuling.binarytree.model;
 
-public class Tree {
+import com.denisneuling.binarytree.model.Node;
+
+public class BinaryTree {
 
 	private Node rootNode;
 	
-	public Tree(){
+	public BinaryTree(){
 	}
 
 	public Node getRootNode() {
