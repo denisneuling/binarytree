@@ -14,12 +14,15 @@ import org.springframework.stereotype.Component;
 import com.denisneuling.binarytree.model.BinaryTree;
 
 @Component
-public class TreeMaterializationService {
+public class BinaryTreeMaterializationService {
 
 	@Value("${defaults.ser.extension}")
 	private String extension;
 	
 	public void serializeTo(File file, BinaryTree tree) {
+		if(tree==null){
+			throw new RuntimeException("BinaryTree cannot be null.");
+		}
 		try {
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
 			objectOutputStream.writeObject(tree);
@@ -36,10 +39,10 @@ public class TreeMaterializationService {
 		try {
 			objectInputStream = new ObjectInputStream(new FileInputStream(file));
 			Object object = objectInputStream.readObject();
-			if(BinaryTree.class.equals(object.getClass())){
+			if(object!=null && BinaryTree.class.equals(object.getClass())){
 				return (BinaryTree)object;
 			}else{
-				throw new RuntimeException();
+				throw new RuntimeException("Serialized Binary Tree was null.");
 			}
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);

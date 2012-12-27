@@ -8,19 +8,19 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPlex;
+import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPane;
 import com.denisneuling.binarytree.gui.component.BinaryTreeFileChoser;
-import com.denisneuling.binarytree.service.TreeMaterializationService;
+import com.denisneuling.binarytree.service.BinaryTreeMaterializationService;
 
 @Component
 public class SaveMenuItemListener extends BaseMenuItemListener{
 	protected Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private BinaryTreeEditorPlex binaryTreeEditorPlex;
+	private BinaryTreeEditorPane binaryTreeEditorPlex;
 	
 	@Autowired
-	private TreeMaterializationService treeMaterialingService;
+	private BinaryTreeMaterializationService treeMaterialingService;
 	
 	@Autowired
 	private BinaryTreeFileChoser binaryTreeFileChoser;

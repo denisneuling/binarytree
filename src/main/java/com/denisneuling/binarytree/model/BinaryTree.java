@@ -1,19 +1,27 @@
 package com.denisneuling.binarytree.model;
 
-import com.denisneuling.binarytree.model.Node;
+import java.io.Serializable;
 
-public class BinaryTree {
 
-	private Node rootNode;
+public class BinaryTree implements Serializable {
+	private static final long serialVersionUID = 805509743118242903L;
+	
+	private Node rootNode = new Node();
 	
 	public BinaryTree(){
 	}
 
-	public Node getRootNode() {
+	public Node getNode() {
 		return rootNode;
 	}
 
-	public void setRootNode(Node rootNode) {
+	public void setNode(Node rootNode) {
 		this.rootNode = rootNode;
+	}
+	
+	public void addNode(Node node){
+		if(rootNode == null){
+			
+		}
 	}
 }

@@ -1,5 +1,9 @@
 package com.denisneuling.binarytree.runner;
 
+import java.util.Map;
+
+import com.denisneuling.binarytree.cli.CommandLineUtil;
+import com.denisneuling.binarytree.gui.MainFrame;
 import com.denisneuling.binarytree.spring.ApplicationContextLoader;
 
 /**
@@ -11,7 +15,7 @@ import com.denisneuling.binarytree.spring.ApplicationContextLoader;
 public class Runner {
 
 	@SuppressWarnings("unused")
-	private static ApplicationContextLoader applicationContextLoader = ApplicationContextLoader.getInstance();
+	private static ApplicationContextLoader applicationContextLoader;
 	
 	/**
 	 * <p>main.</p>
@@ -19,5 +23,12 @@ public class Runner {
 	 * @param args an array of {@link java.lang.String} objects.
 	 */
 	public static void main(String[] args){
+		Map<String, String> arguments = CommandLineUtil.parseArgs(args);
+		
+		if(arguments.get("nogui")!=null){
+			MainFrame.nogui = true;
+		}
+		
+		applicationContextLoader = ApplicationContextLoader.getInstance();
 	}
 }

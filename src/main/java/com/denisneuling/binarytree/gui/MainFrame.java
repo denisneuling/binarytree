@@ -14,7 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPlex;
+import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPane;
 import com.denisneuling.binarytree.gui.component.MenuPanel;
 
 /**
@@ -35,7 +35,9 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 	private MenuPanel menuPanel;
 	
 	@Autowired
-	private BinaryTreeEditorPlex binaryTreeEditorPlex;
+	private BinaryTreeEditorPane binaryTreeEditorPlex;
+	
+	public static boolean nogui = false;
 	
 	/**
 	 * <p>Constructor for MainFrame.</p>
@@ -72,10 +74,13 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 		MigLayout layout = new MigLayout();
 		
 		this.getContentPane().setLayout(layout);
-//		this.getContentPane().add(connectFourGrid, "north, grow");
+		this.getContentPane().add(binaryTreeEditorPlex, "north, grow");
 		
 		this.pack();
-		this.setVisible(true);
+		
+		if(!nogui){
+			this.setVisible(true);
+		}
 	}
 
 	/** {@inheritDoc} */
