@@ -6,18 +6,18 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.gui.dialog.NewDialog;
+import com.denisneuling.binarytree.gui.dialog.RemoveNodeDialog;
 
 @Component
-public class NewMenuItemListener extends BaseMenuItemListener {
+public class RemoveNodeMenuListener  extends BaseMenuItemListener {
 	protected Logger log = Logger.getLogger(this.getClass());
-	
+
 	@Autowired
-	private NewDialog newDialog;
+	private RemoveNodeDialog removeNodeDialog;
 	
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		newDialog.setVisible(true);
+		removeNodeDialog.setVisible(true);
 	}
 }

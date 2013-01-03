@@ -1,66 +1,107 @@
 package com.denisneuling.binarytree.gui.dialog;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.LinkedList;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.denisneuling.binarytree.gui.component.err.ErrorTile;
+
 @Component
-public class ErrorDialog extends BaseDialog implements ActionListener, InitializingBean {
-	private static final long serialVersionUID = -8042741582297828053L;
+public class ErrorDialog extends ConfirmDialog implements InitializingBean {
+	private static final long serialVersionUID = -1726175077914308091L;
 	protected Logger log = Logger.getLogger(this.getClass());
 
-	private MigLayout layout;
-	private JLabel label;
-	private JButton okButton;
+	@Value("${gui.dialog.error.title}")
+	private String title;
+	
+	private JScrollPane scrollPane;
+	private JPanel embeddedContentPane = new JPanel();
+	
+	private volatile LinkedList<ErrorTile> errors = new LinkedList<ErrorTile>();
 
-	public ErrorDialog() {
-		this.setSize(new Dimension(350, 150));
-		this.setResizable(false);
-
-		layout = new MigLayout("fillx", "[right]rel[grow,fill]", "[]10[]");
-		this.setLayout(layout);
-
-		label = new JLabel();
-		this.add(label, "");
-
-		// TODO find workaround for better line feed
-		this.add(new JLabel(), "");
-
-		JPanel buttonPanel = new JPanel(new MigLayout("fillx,insets 0"));
-
-		// Ok button
-		okButton = new JButton("Ok");
-		okButton.setMnemonic('O');
-		okButton.addActionListener(this);
-		buttonPanel.add(okButton, "split,right,width 100!");
-
-		this.add(buttonPanel, "span");
+	/**
+	 * <p>Constructor for ErrorDialog.</p>
+	 */
+	public ErrorDialog(){
+		this.setMinimumSize(new Dimension(600, 300));
 	}
-
-	public void showError(String errorMessage) {
-		label.setText(errorMessage);
-
-		this.repaint();
-		this.setVisible(true);
-	}
-
+	
+	/** {@inheritDoc} */
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		this.setVisible(false);
+	public void onConfirm() {
+		errors.clear();
+		embeddedContentPane.removeAll();
 	}
 
+	/** {@inheritDoc} */
+	@Override
+	public void onError(Throwable throwable) {
+		showError(throwable);
+	}
+	
+	/**
+	 * <p>showError.</p>
+	 *
+	 * @param message a {@link java.lang.String} object.
+	 */
+	public void showError(String message){
+		this.showError(message, null);
+	}
+	
+	/**
+	 * <p>showError.</p>
+	 *
+	 * @param message a {@link java.lang.String} object.
+	 * @param throwable a {@link java.lang.Throwable} object.
+	 */
+	public void showError(String message, Throwable throwable){
+		log.error(message, throwable);
+		
+		embeddedContentPane.removeAll();
+		embeddedContentPane.setLayout(new MigLayout("fill"));
+		
+		ErrorTile tile = new ErrorTile(message, throwable, scrollPane);
+		errors.add(tile);
+		
+		Collections.reverse(errors);
+		for(ErrorTile errorTile : errors){
+			embeddedContentPane.add(errorTile, "north");
+			embeddedContentPane.updateUI();
+		}
+		Collections.reverse(errors);
+		
+		scrollPane.updateUI();
+		scrollPane.revalidate();
+		if (!this.isVisible()) {
+			this.setVisible(true);
+		}
+	}
+	
+	/**
+	 * <p>showError.</p>
+	 *
+	 * @param throwable a {@link java.lang.Throwable} object.
+	 */
+	public void showError(Throwable throwable){
+		this.showError(null, throwable);
+	}
+	
+	/** {@inheritDoc} */
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		this.addWindowListener(this);
+		setTitle(title);
+		getContentPane().setLayout(new MigLayout("fill"));
+		scrollPane = new JScrollPane(embeddedContentPane);
+		getContentPane().add(scrollPane, "grow, push");
 	}
 }

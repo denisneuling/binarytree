@@ -49,7 +49,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.denisneuling.binarytree.runner.Runner</mainClass>
+							<mainClass>com.denisneuling.binarytree.launcher.Launcher</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

@@ -8,8 +8,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPane;
 import com.denisneuling.binarytree.gui.component.BinaryTreeFileChoser;
+import com.denisneuling.binarytree.gui.component.TreePanel;
+import com.denisneuling.binarytree.gui.dialog.ErrorDialog;
 import com.denisneuling.binarytree.service.BinaryTreeMaterializationService;
 
 @Component
@@ -17,20 +18,25 @@ public class SaveMenuItemListener extends BaseMenuItemListener{
 	protected Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private BinaryTreeEditorPane binaryTreeEditorPlex;
+	private TreePanel treePanel;
 	
 	@Autowired
 	private BinaryTreeMaterializationService treeMaterialingService;
 	
 	@Autowired
 	private BinaryTreeFileChoser binaryTreeFileChoser;
+	
+	@Autowired
+	private ErrorDialog errorDialog;
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		super.actionPerformed(e);
-
-		openFileSaver();
+		try{
+			openFileSaver();
+		}catch(Throwable throwable){
+			errorDialog.showError(throwable);
+		}
 	}
 
 	private void openFileSaver() {
@@ -43,7 +49,8 @@ public class SaveMenuItemListener extends BaseMenuItemListener{
 					throw new RuntimeException(e);
 				}
 			}
-			treeMaterialingService.serializeTo(target, binaryTreeEditorPlex.getBinaryTree());
+			log.debug("Saving...\n"+treePanel.getTree().toString());
+			treeMaterialingService.serializeTo(target, treePanel.getTree());
 		}
 	}
 }

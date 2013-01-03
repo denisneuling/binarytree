@@ -5,14 +5,17 @@ import java.io.Serializable;
 public class Node implements Serializable, Comparable<Serializable> {
 	private static final long serialVersionUID = 7237352710185333892L;
 
-	private int posx;
-	private int posy;
+	private int posx = 1;
+	private int posy = 1;
 	
 	private Node childL;
 	private Node childR;
 	
 	private Serializable value;
 
+	public Node(){
+	}
+	
 	public Node(Serializable value){
 		this.value = value;
 	}
@@ -56,7 +59,7 @@ public class Node implements Serializable, Comparable<Serializable> {
 	public void setChildR(Node childR) {
 		this.childR = childR;
 	}
-
+	
 	@Override
 	public int compareTo(Serializable o) {
 		if(this.hashCode() < o.hashCode()){
@@ -70,6 +73,6 @@ public class Node implements Serializable, Comparable<Serializable> {
 
 	@Override
 	public String toString() {
-		return "Node [value=" + value.toString() + "]";
+		return "Node [posx=" + posx + ", posy=" + posy + ", childL=" + childL + ", childR=" + childR + ", value=" + value + "]";
 	}
 }

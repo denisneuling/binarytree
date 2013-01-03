@@ -18,8 +18,8 @@ public class ColoredConsoleAppender extends org.apache.log4j.ConsoleAppender imp
 	public ColoredConsoleAppender() {
 		colors.put(Level.ALL, Colors.RESET);
 		colors.put(Level.TRACE, Colors.RESET);
-		colors.put(Level.DEBUG, Colors.WHITEF);
-		colors.put(Level.INFO, Colors.RESET);
+		colors.put(Level.DEBUG, Colors.RESET);
+		colors.put(Level.INFO, Colors.WHITEF);
 		colors.put(Level.WARN, Colors.BLUEF);
 		colors.put(Level.ERROR, Colors.REDF);
 		colors.put(Level.FATAL, Colors.MAGENTAF);

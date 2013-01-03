@@ -1,43 +1,62 @@
 package com.denisneuling.binarytree.service;
 
-import org.springframework.beans.factory.InitializingBean;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.denisneuling.binarytree.common.StringGenerator;
-import com.denisneuling.binarytree.model.BinaryTree;
+import com.denisneuling.binarytree.common.SerializableComparator;
+import com.denisneuling.binarytree.gui.component.TreePanel;
 import com.denisneuling.binarytree.model.Node;
+import com.denisneuling.binarytree.model.Tree;
 
 @Service
-public class BinaryTreeService implements InitializingBean{
+public class BinaryTreeService {
+	protected Logger log = Logger.getLogger(this.getClass());
 
-	private volatile BinaryTree binaryTree = new BinaryTree();
-
-	public int getTotalNodes() {
-		return binaryTree.getNodes();
-	}
-
-	public int getDepth() {
-		return binaryTree.getDepth();
-	}
-
-	public BinaryTree getBinaryTree() {
-		return binaryTree;
-	}
-
-	public void setBinaryTree(BinaryTree binaryTree) {
-		this.binaryTree = binaryTree;
+	@Autowired
+	private TreePanel treePanel;
+	
+	@Autowired
+	private SerializableComparator serializableComparator;
+	
+	public void remove(String value){
+		List<String> values = extractValues(treePanel.getTree());
+		values.remove(value);
+		
+		Tree newTree = new Tree();
+		for(String s : values){
+			newTree.setRoot(newTree.insert(newTree.getRoot(), s));
+		}
+		treePanel.setTree(newTree);
 	}
 	
-	public void insertInto(BinaryTree binaryTree,Node node){
-		binaryTree.insert(node);
+	private List<String> extractValues(Tree tree){
+		return extractedValue(null, tree.getRoot());
 	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		StringGenerator gen = new StringGenerator();
-		for (int i = 0; i < 10000; i++) {
-			binaryTree.insert(new Node(gen.nextValue()));
+	
+	private List<String> extractedValue(List<String> list, Node node){
+		if(list==null){
+			list = new LinkedList<String>();
 		}
+		if(node == null){
+			return list;
+		}
+		list.add((String) node.getValue());
+		extractedValue(list, node.getChildL());
+		extractedValue(list, node.getChildR());
+		return list;
 		
+	}
+	
+	public void insert(String value){
+		if (treePanel.getTree() == null) {
+			treePanel.setTree(new Tree());
+		}
+		treePanel.getTree().setInputString(treePanel.getTree().getInputString()+value);
+		treePanel.getTree().setRoot(treePanel.getTree().insert(treePanel.getTree().getRoot(), value));
+		treePanel.setTree(treePanel.getTree());
 	}
 }

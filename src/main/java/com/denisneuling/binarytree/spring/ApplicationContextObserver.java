@@ -48,9 +48,6 @@ public class ApplicationContextObserver extends Observable implements BeanPostPr
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		log.debug(String.format("On %s Bean {%s} initialized.", applicationContext.getDisplayName(), beanName));
 		
-		this.setChanged();
-		this.notifyObservers(new ContextEvent(beanName));
-		
 		return bean;
 	}
 
@@ -64,8 +61,6 @@ public class ApplicationContextObserver extends Observable implements BeanPostPr
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
 		if (event instanceof ContextRefreshedEvent) {
-			this.setChanged();
-			this.notifyObservers(new ContextEvent(ContextEvent.State.FINISHED));
 			refreshed = true;
 		}
 	}

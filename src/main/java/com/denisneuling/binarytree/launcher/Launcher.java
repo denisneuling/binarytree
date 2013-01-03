@@ -1,12 +1,9 @@
-package com.denisneuling.binarytree.runner;
+package com.denisneuling.binarytree.launcher;
 
 import java.util.Map;
 
 import com.denisneuling.binarytree.cli.CommandLineUtil;
-import com.denisneuling.binarytree.common.StringGenerator;
 import com.denisneuling.binarytree.gui.MainFrame;
-import com.denisneuling.binarytree.model.BinaryTree;
-import com.denisneuling.binarytree.model.Node;
 import com.denisneuling.binarytree.spring.ApplicationContextLoader;
 
 /**
@@ -15,7 +12,7 @@ import com.denisneuling.binarytree.spring.ApplicationContextLoader;
  * @author Denis Neuling (denisneuling@gmail.com)
  * 
  */
-public class Runner {
+public class Launcher {
 
 	@SuppressWarnings("unused")
 	private static ApplicationContextLoader applicationContextLoader;

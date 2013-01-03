@@ -1,5 +1,6 @@
 package com.denisneuling.binarytree.gui;
 
+import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -15,8 +16,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPane;
 import com.denisneuling.binarytree.gui.component.MenuPanel;
+import com.denisneuling.binarytree.gui.component.TreePanel;
 
 /**
  * <p>MainFrame class.</p>
@@ -35,8 +36,14 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 	@Autowired
 	private MenuPanel menuPanel;
 	
+	@Value("${defaults.editor.size.x}")
+	private String sizeX = "600";
+
+	@Value("${defaults.editor.size.y}")
+	private String sizeY = "600";
+
 	@Autowired
-	private BinaryTreeEditorPane binaryTreeEditorPlex;
+	private TreePanel treePanel;
 	
 	public static boolean nogui = false;
 	
@@ -48,7 +55,8 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 	 */
 	public MainFrame(){
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
+		
 		addWindowListener(this);
 	}
 	
@@ -76,16 +84,12 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 		setTitle(title);
 		setJMenuBar(menuPanel);
 		
-		MigLayout layout = new MigLayout();
-		
-		this.getContentPane().setLayout(layout);
-		this.getContentPane().add(binaryTreeEditorPlex, "north, grow");
+		this.getContentPane().setLayout(new MigLayout("fill"));
+		this.getContentPane().add(treePanel, "grow");
+		this.setMinimumSize(new Dimension(Integer.parseInt(sizeX),Integer.parseInt(sizeY)));
+		this.setVisible(true);
 		
 		this.pack();
-		
-		if(!nogui){
-			this.setVisible(true);
-		}
 	}
 
 	/** {@inheritDoc} */

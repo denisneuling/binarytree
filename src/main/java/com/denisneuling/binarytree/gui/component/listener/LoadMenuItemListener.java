@@ -7,9 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.denisneuling.binarytree.gui.component.BinaryTreeEditorPane;
 import com.denisneuling.binarytree.gui.component.BinaryTreeFileChoser;
-import com.denisneuling.binarytree.model.BinaryTree;
+import com.denisneuling.binarytree.gui.component.TreePanel;
+import com.denisneuling.binarytree.gui.dialog.ErrorDialog;
+import com.denisneuling.binarytree.model.Tree;
 import com.denisneuling.binarytree.service.BinaryTreeMaterializationService;
 
 @Component
@@ -17,27 +18,34 @@ public class LoadMenuItemListener extends BaseMenuItemListener {
 	protected Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
-	private BinaryTreeEditorPane binaryTreeEditorPlex;
+	private TreePanel treePanel;
 	
 	@Autowired
 	private BinaryTreeMaterializationService treeMaterialingService;
 	
 	@Autowired
 	private BinaryTreeFileChoser binaryTreeFileChoser;
+	
+	@Autowired
+	private ErrorDialog errorDialog;
 
 	/** {@inheritDoc} */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		super.actionPerformed(e);
-
-		openFileLoader();
+		try{
+			openFileLoader();
+		}catch(Throwable throwable){
+			errorDialog.showError(throwable);
+		}
 	}
 
 	private void openFileLoader() {
 		File target = binaryTreeFileChoser.showLoadDialog();
 		if(target != null){
-			BinaryTree binaryTree = treeMaterialingService.deserializeFrom(target);
-			binaryTreeEditorPlex.setBinaryTree(binaryTree);
+			Tree tree = treeMaterialingService.deserializeFrom(target);
+			tree.computeNodePositions();
+			log.debug("Loaded...\n"+tree);
+			treePanel.setTree(tree);
 		}
 	}
 }

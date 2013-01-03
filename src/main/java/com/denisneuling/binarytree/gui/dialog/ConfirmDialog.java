@@ -12,35 +12,35 @@ import javax.swing.JScrollPane;
 import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * <p>Abstract ConfirmDialog class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 @Component
-public abstract class ConfirmCancelDialog extends BaseDialog{
-	private static final long serialVersionUID = 8516091888456072697L;
+public abstract class ConfirmDialog extends BaseDialog{
+	private static final long serialVersionUID = 5958464790527032755L;
 	protected Logger log = Logger.getLogger(this.getClass());
 
-	@Autowired
-	private ErrorDialog errorDialog;
-	
 	private MigLayout layout;
 	
 	private volatile boolean ready = false;
-	protected JPanel contentPane;
+	protected JPanel contentPane = new JPanel();
 	private JScrollPane scrollPane;
-	
 	protected JButton confirmButton;
-	protected JButton cancelButton;
 	
 	/**
-	 * <p>Constructor for ConfirmCancelDialog.</p>
+	 * <p>Constructor for ConfirmDialog.</p>
 	 */
-	public ConfirmCancelDialog(){
-		layout = new MigLayout("fill","","[grow]rel[grow]");
+	public ConfirmDialog(){
+		layout = new MigLayout("fill");
 		
 		this.setMinimumSize(new Dimension(600, 300));
-		setLayout(layout);
 		
+		setLayout(layout);
 		contentPane = new JPanel();
 		contentPane.setLayout(new MigLayout("fill"));
 		
@@ -51,14 +51,10 @@ public abstract class ConfirmCancelDialog extends BaseDialog{
 		buttonPane.setLayout(new MigLayout("fill"));
 		
 		confirmButton = new JButton("Confirm");
-		buttonPane.add(confirmButton, "span,split 2,growx,push");
+		buttonPane.add(confirmButton, "span, split 2, growx");
 		confirmButton.addActionListener(this);
 		
-		cancelButton = new JButton("Cancel");
-		buttonPane.add(cancelButton,"growx, push");
-		cancelButton.addActionListener(this);
-		
-		add(buttonPane, "growx");//, south");
+		add(buttonPane, "growx, south");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		addWindowListener(this);
 		
@@ -73,13 +69,6 @@ public abstract class ConfirmCancelDialog extends BaseDialog{
 		if(confirmButton.equals(e.getSource())){
 			try{
 				onConfirm();
-				this.setVisible(false);
-			}catch(Exception exception){
-				onError(exception);
-			}
-		}else if(cancelButton.equals(e.getSource())){
-			try{
-				onCancel();
 				this.setVisible(false);
 			}catch(Exception exception){
 				onError(exception);
@@ -103,16 +92,10 @@ public abstract class ConfirmCancelDialog extends BaseDialog{
 	public abstract void onConfirm();
 	
 	/**
-	 * <p>onCancel.</p>
-	 */
-	public abstract void onCancel();
-	
-	/**
 	 * <p>onError.</p>
 	 *
 	 * @param throwable a {@link java.lang.Throwable} object.
 	 */
-	public void onError(Throwable throwable){
-		errorDialog.showError(throwable);
-	}
+	public abstract void onError(Throwable throwable);
+	
 }
