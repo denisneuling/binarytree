@@ -13,11 +13,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.denisneuling.binarytree.gui.MainFrame;
+import com.denisneuling.binarytree.gui.dialog.AddNodeDialog;
+import com.denisneuling.binarytree.gui.dialog.EditNodeDialog;
+import com.denisneuling.binarytree.gui.dialog.RemoveNodeDialog;
 
 @Component
 public class PopupMenu extends JPopupMenu implements ActionListener,InitializingBean{
 	private static final long serialVersionUID = -5478903794243320305L;
 	protected Logger log = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private AddNodeDialog addNodeDialog;
+	
+	@Autowired
+	private EditNodeDialog editNodeDialog;
+	
+	@Autowired
+	private RemoveNodeDialog removeNodeDialog;
 	
 	@Autowired
 	private MainFrame mainFrame;
@@ -45,10 +57,13 @@ public class PopupMenu extends JPopupMenu implements ActionListener,Initializing
 	public void actionPerformed(ActionEvent arg0) {
 		if(add.equals(arg0.getSource())){
 			log.info("Add");
+			addNodeDialog.setVisible(true);
 		}else if(edit.equals(arg0.getSource())){
 			log.info("Edit");
+			editNodeDialog.setVisible(true);
 		}else if(remove.equals(arg0.getSource())){
 			log.info("Remove");
+			removeNodeDialog.setVisible(true);
 		}
 	}
 	

@@ -2,13 +2,10 @@ package com.denisneuling.binarytree.gui.component;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.Serializable;
 
-import javax.swing.JPanel;
+import javax.swing.JTree;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
@@ -17,11 +14,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.denisneuling.binarytree.model.BinaryTree;
-import com.denisneuling.binarytree.model.Node;
 import com.denisneuling.binarytree.service.BinaryTreeService;
 
 @Component
-public class BinaryTreeEditorPane extends JPanel implements InitializingBean, MouseListener {
+public class BinaryTreeEditorPane extends JTree implements InitializingBean, MouseListener {
 	private static final long serialVersionUID = -381553764719490920L;
 	protected Logger log = Logger.getLogger(this.getClass());
 
@@ -36,7 +32,7 @@ public class BinaryTreeEditorPane extends JPanel implements InitializingBean, Mo
 
 	@Autowired
 	private BinaryTreeService binaryTreeService;
-
+	
 	private int x;
 	private int y;
 
@@ -94,72 +90,72 @@ public class BinaryTreeEditorPane extends JPanel implements InitializingBean, Mo
 		log.debug("Mouse exited: " + arg0);
 	}
 
-	protected void paintComponent(Graphics g) {
-		g.setColor(getBackground()); // colors the window
-		g.fillRect(0, 0, getWidth(), getHeight());
-		g.setColor(getForeground()); // set color and fonts
-		Font MyFont = new Font("SansSerif", Font.PLAIN, 10);
-		g.setFont(MyFont);
-//		int xs = 10; // where to start printing on the panel
-		int ys = 20;
-		ys = ys + 10;
-		// int start = 0;
-		// print input string on panel, 150 chars per line
-		// // if string longer than 23 lines don't print
-		// if (t.inputString.length() < 23 * 150) {
-		// while ((t.inputString.length() - start) > 150) {
-		// g.drawString(t.inputString.substring(start, start + 150), xs, ys);
-		// start += 151;
-		// ys += 15;
-		// }
-		// g.drawString(t.inputString.substring(start, t.inputString.length()),
-		// xs, ys);
-		// }
-		MyFont = new Font("SansSerif", Font.BOLD, 20); // bigger font for tree
-		g.setFont(MyFont);
-		this.drawTree(g, binaryTreeService.getBinaryTree().getNode()); // draw
-																		// the
-																		// tree
-		revalidate(); // update the component panel
-	}
-
-	public void drawTree(Graphics g, Node root) {// actually draws the tree
-		int dx, dy, dx2, dy2;
-		int SCREEN_WIDTH = x; // screen size for panel
-		int SCREEN_HEIGHT = y;
-		int XSCALE, YSCALE;
-
-		int totalNodes = binaryTreeService.getTotalNodes();
-		int maxDepth = binaryTreeService.getDepth();
-		XSCALE = SCREEN_WIDTH / totalNodes;
-		YSCALE = (SCREEN_HEIGHT - 0) / (maxDepth + 1);
-
-		if (root != null) { // inorder traversal to draw each node
-			drawTree(g, root.getChildL()); // do left side of inorder traversal
-			dx = root.getPosx() * XSCALE; // get x,y coords., and scale them
-			dy = root.getPosy() * YSCALE + 20;
-			Serializable s = root.getValue(); // get the word at this
-														// node
-			g.drawString((s!=null?s.toString():""), dx, dy); // draws the word
-			// this draws the lines from a node to its children, if any
-			if (root.getChildL() != null) { // draws the line to left child if
-											// it
-				// exists
-				dx2 = root.getChildL().getPosx() * XSCALE;
-				dy2 = root.getChildL().getPosy() * YSCALE + 20;
-				g.drawLine(dx, dy, dx2, dy2);
-			}
-			if (root.getChildR() != null) { // draws the line to right child if
-											// it
-				// exists
-				dx2 = root.getChildR().getPosx() * XSCALE;// get right child x,y
-															// scaled
-				// position
-				dy2 = root.getChildR().getPosy() * YSCALE + 20;
-				g.drawLine(dx, dy, dx2, dy2);
-			}
-			drawTree(g, root.getChildR()); // now do right side of inorder
-											// traversal
-		}
-	}
+//	protected void paintComponent(Graphics g) {
+//		g.setColor(getBackground()); // colors the window
+//		g.fillRect(0, 0, getWidth(), getHeight());
+//		g.setColor(getForeground()); // set color and fonts
+//		Font MyFont = new Font("Monospace", Font.PLAIN, 6);
+//		g.setFont(MyFont);
+////		int xs = 10; // where to start printing on the panel
+//		int ys = 20;
+//		ys = ys + 10;
+//		// int start = 0;
+//		// print input string on panel, 150 chars per line
+//		// // if string longer than 23 lines don't print
+//		// if (t.inputString.length() < 23 * 150) {
+//		// while ((t.inputString.length() - start) > 150) {
+//		// g.drawString(t.inputString.substring(start, start + 150), xs, ys);
+//		// start += 151;
+//		// ys += 15;
+//		// }
+//		// g.drawString(t.inputString.substring(start, t.inputString.length()),
+//		// xs, ys);
+//		// }
+//		MyFont = new Font("Monospace", Font.PLAIN, 6); // bigger font for tree
+//		g.setFont(MyFont);
+//		this.drawTree(g, binaryTreeService.getBinaryTree().getRootNode()); // draw
+//																		// the
+//																		// tree
+//		revalidate(); // update the component panel
+//	}
+//
+//	public void drawTree(Graphics g, Node root) {// actually draws the tree
+//		int dx, dy, dx2, dy2;
+//		int SCREEN_WIDTH = x; // screen size for panel
+//		int SCREEN_HEIGHT = y;
+//		int XSCALE, YSCALE;
+//
+//		int totalNodes = binaryTreeService.getTotalNodes();
+//		int maxDepth = binaryTreeService.getDepth();
+//		XSCALE = SCREEN_WIDTH / totalNodes;
+//		YSCALE = (SCREEN_HEIGHT - 0) / (maxDepth + 1);
+//
+//		if (root != null) { // inorder traversal to draw each node
+//			drawTree(g, root.getChildL()); // do left side of inorder traversal
+//			dx = root.getPosx() * XSCALE; // get x,y coords., and scale them
+//			dy = root.getPosy() * YSCALE + 20;
+//			Serializable s = root.getValue(); // get the word at this
+//														// node
+//			g.drawString((s!=null?s.toString():""), dx, dy); // draws the word
+//			// this draws the lines from a node to its children, if any
+//			if (root.getChildL() != null) { // draws the line to left child if
+//											// it
+//				// exists
+//				dx2 = root.getChildL().getPosx() * XSCALE;
+//				dy2 = root.getChildL().getPosy() * YSCALE + 20;
+//				g.drawLine(dx, dy, dx2, dy2);
+//			}
+//			if (root.getChildR() != null) { // draws the line to right child if
+//											// it
+//				// exists
+//				dx2 = root.getChildR().getPosx() * XSCALE;// get right child x,y
+//															// scaled
+//				// position
+//				dy2 = root.getChildR().getPosy() * YSCALE + 20;
+//				g.drawLine(dx, dy, dx2, dy2);
+//			}
+//			drawTree(g, root.getChildR()); // now do right side of inorder
+//											// traversal
+//		}
+//	}
 }

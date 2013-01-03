@@ -10,6 +10,7 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -38,6 +39,9 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 	private BinaryTreeEditorPane binaryTreeEditorPlex;
 	
 	public static boolean nogui = false;
+	
+	@Value("${defaults.gui.mainframe.title}")
+	private String title;
 	
 	/**
 	 * <p>Constructor for MainFrame.</p>
@@ -69,6 +73,7 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 	/** {@inheritDoc} */
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		setTitle(title);
 		setJMenuBar(menuPanel);
 		
 		MigLayout layout = new MigLayout();

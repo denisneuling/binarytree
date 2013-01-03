@@ -2,7 +2,7 @@ package com.denisneuling.binarytree.model;
 
 import java.io.Serializable;
 
-public class Node implements Serializable {
+public class Node implements Serializable, Comparable<Serializable> {
 	private static final long serialVersionUID = 7237352710185333892L;
 
 	private int posx;
@@ -13,6 +13,10 @@ public class Node implements Serializable {
 	
 	private Serializable value;
 
+	public Node(Serializable value){
+		this.value = value;
+	}
+	
 	public Serializable getValue() {
 		return value;
 	}
@@ -51,5 +55,21 @@ public class Node implements Serializable {
 
 	public void setChildR(Node childR) {
 		this.childR = childR;
+	}
+
+	@Override
+	public int compareTo(Serializable o) {
+		if(this.hashCode() < o.hashCode()){
+			return -1;
+		}
+		if(this.hashCode() > o.hashCode()){
+			return 1;
+		}
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Node [value=" + value.toString() + "]";
 	}
 }
