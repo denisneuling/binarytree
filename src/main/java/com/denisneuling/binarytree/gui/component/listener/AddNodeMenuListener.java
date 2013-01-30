@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 import com.denisneuling.binarytree.gui.dialog.AddNodeDialog;
 
 @Component
+/**
+ * <p>AddNodeMenuListener class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class AddNodeMenuListener extends BaseMenuItemListener {
 	protected Logger log = Logger.getLogger(this.getClass());
 	

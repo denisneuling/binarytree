@@ -45,6 +45,7 @@ public class MainFrame extends JFrame implements InitializingBean, WindowListene
 	@Autowired
 	private TreePanel treePanel;
 	
+	/** Constant <code>nogui=false</code> */
 	public static boolean nogui = false;
 	
 	@Value("${defaults.gui.mainframe.title}")

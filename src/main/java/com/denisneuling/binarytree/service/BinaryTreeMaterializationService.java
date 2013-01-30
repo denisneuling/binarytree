@@ -14,12 +14,24 @@ import org.springframework.stereotype.Service;
 import com.denisneuling.binarytree.model.Tree;
 
 @Service
+/**
+ * <p>BinaryTreeMaterializationService class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class BinaryTreeMaterializationService {
 	protected Logger log = Logger.getLogger(this.getClass());
 
 	@Value("${defaults.ser.extension}")
 	private String extension;
 
+	/**
+	 * <p>serializeTo.</p>
+	 *
+	 * @param file a {@link java.io.File} object.
+	 * @param tree a {@link com.denisneuling.binarytree.model.Tree} object.
+	 */
 	public void serializeTo(File file, Tree tree) {
 		if (tree == null) {
 			throw new RuntimeException("BinaryTree cannot be null.");
@@ -43,6 +55,12 @@ public class BinaryTreeMaterializationService {
 		}
 	}
 
+	/**
+	 * <p>deserializeFrom.</p>
+	 *
+	 * @param file a {@link java.io.File} object.
+	 * @return a {@link com.denisneuling.binarytree.model.Tree} object.
+	 */
 	public Tree deserializeFrom(File file) {
 		ObjectInputStream objectInputStream = null;
 		try {

@@ -12,6 +12,12 @@ import org.springframework.stereotype.Component;
 import com.denisneuling.binarytree.service.BinaryTreeService;
 
 @Component
+/**
+ * <p>RemoveNodeDialog class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class RemoveNodeDialog extends ConfirmCancelDialog{
 	private static final long serialVersionUID = 8734261623116120969L;
 	protected Logger log = Logger.getLogger(this.getClass());
@@ -26,6 +32,9 @@ public class RemoveNodeDialog extends ConfirmCancelDialog{
 	private JLabel key;
 	private JTextField value;
 	
+	/**
+	 * <p>Constructor for RemoveNodeDialog.</p>
+	 */
 	public RemoveNodeDialog(){
 		this.setTitle("Remove Node");
 	
@@ -40,6 +49,7 @@ public class RemoveNodeDialog extends ConfirmCancelDialog{
 		this.setResizable(false);
 	}
 	
+	/** {@inheritDoc} */
 	@Override
 	public void onConfirm() {
 		log.debug("Confirmed.");
@@ -60,6 +70,7 @@ public class RemoveNodeDialog extends ConfirmCancelDialog{
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void onCancel() {
 		log.debug("Cancelled.");

@@ -14,6 +14,12 @@ import com.denisneuling.binarytree.gui.dialog.ErrorDialog;
 import com.denisneuling.binarytree.service.BinaryTreeMaterializationService;
 
 @Component
+/**
+ * <p>SaveMenuItemListener class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class SaveMenuItemListener extends BaseMenuItemListener{
 	protected Logger log = Logger.getLogger(this.getClass());
 

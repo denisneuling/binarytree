@@ -13,6 +13,12 @@ import com.denisneuling.binarytree.model.Node;
 import com.denisneuling.binarytree.model.Tree;
 
 @Service
+/**
+ * <p>BinaryTreeService class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class BinaryTreeService {
 	protected Logger log = Logger.getLogger(this.getClass());
 
@@ -22,6 +28,11 @@ public class BinaryTreeService {
 	@Autowired
 	private SerializableComparator serializableComparator;
 	
+	/**
+	 * <p>remove.</p>
+	 *
+	 * @param value a {@link java.lang.String} object.
+	 */
 	public void remove(String value){
 		List<String> values = extractValues(treePanel.getTree());
 		values.remove(value);
@@ -51,6 +62,11 @@ public class BinaryTreeService {
 		
 	}
 	
+	/**
+	 * <p>insert.</p>
+	 *
+	 * @param value a {@link java.lang.String} object.
+	 */
 	public void insert(String value){
 		if (treePanel.getTree() == null) {
 			treePanel.setTree(new Tree());

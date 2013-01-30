@@ -17,6 +17,12 @@ import com.denisneuling.binarytree.model.Node;
 import com.denisneuling.binarytree.model.Tree;
 
 @Component
+/**
+ * <p>TreePanel class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class TreePanel extends JPanel {
 	private static final long serialVersionUID = -381553764719490920L;
 	protected Logger log = Logger.getLogger(this.getClass());
@@ -29,16 +35,29 @@ public class TreePanel extends JPanel {
 	
 	private volatile Tree tree = new Tree();
 
+	/**
+	 * <p>Setter for the field <code>tree</code>.</p>
+	 *
+	 * @param tree a {@link com.denisneuling.binarytree.model.Tree} object.
+	 */
 	public void setTree(Tree tree) {
 		this.tree = tree;
 		this.tree.computeNodePositions();
 		
 		this.updateUI();
 	}
+	/**
+	 * <p>Getter for the field <code>tree</code>.</p>
+	 *
+	 * @return a {@link com.denisneuling.binarytree.model.Tree} object.
+	 */
 	public Tree getTree(){
 		return tree;
 	}
 
+	/**
+	 * <p>Constructor for TreePanel.</p>
+	 */
 	public TreePanel() {
 		setVisible(true);
 		setBorder(BorderFactory.createEmptyBorder());
@@ -48,6 +67,7 @@ public class TreePanel extends JPanel {
 		this.setMinimumSize(new Dimension(400, 400));
 	}
 
+	/** {@inheritDoc} */
 	protected void paintComponent(Graphics g) {
 		g.setColor(getBackground());
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -61,6 +81,12 @@ public class TreePanel extends JPanel {
 		revalidate();
 	}
 
+	/**
+	 * <p>drawTree.</p>
+	 *
+	 * @param g a {@link java.awt.Graphics} object.
+	 * @param root a {@link com.denisneuling.binarytree.model.Node} object.
+	 */
 	public void drawTree(Graphics g, Node root) {
 		tree.setMaxHeight(tree.treeHeigth());
 		int dx, dy, dx2, dy2;

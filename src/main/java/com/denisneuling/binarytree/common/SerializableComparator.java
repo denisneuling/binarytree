@@ -6,8 +6,15 @@ import java.util.Comparator;
 import org.springframework.stereotype.Component;
 
 @Component
+/**
+ * <p>SerializableComparator class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class SerializableComparator implements Comparator<Serializable>{
 
+	/** {@inheritDoc} */
 	@Override
 	public int compare(Serializable o1, Serializable o2) {
 		if(o1 instanceof String && o2 instanceof String){

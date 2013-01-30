@@ -16,6 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+/**
+ * <p>Abstract ConfirmCancelDialog class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public abstract class ConfirmCancelDialog extends BaseDialog{
 	private static final long serialVersionUID = 8516091888456072697L;
 	protected Logger log = Logger.getLogger(this.getClass());

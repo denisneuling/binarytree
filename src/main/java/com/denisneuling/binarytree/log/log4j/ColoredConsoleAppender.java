@@ -11,10 +11,19 @@ import org.apache.log4j.spi.OptionHandler;
 
 import com.denisneuling.binarytree.log.colors.Colors;
 
+/**
+ * <p>ColoredConsoleAppender class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class ColoredConsoleAppender extends org.apache.log4j.ConsoleAppender implements Appender, OptionHandler {
 
 	protected Map<Level, String> colors = new HashMap<Level, String>();
 
+	/**
+	 * <p>Constructor for ColoredConsoleAppender.</p>
+	 */
 	public ColoredConsoleAppender() {
 		colors.put(Level.ALL, Colors.RESET);
 		colors.put(Level.TRACE, Colors.RESET);
@@ -26,6 +35,7 @@ public class ColoredConsoleAppender extends org.apache.log4j.ConsoleAppender imp
 		colors.put(Level.OFF, Colors.CYANF);
 	}
 
+	/** {@inheritDoc} */
 	protected void subAppend(LoggingEvent event) {
 
 		String formatted = this.layout.format(event);
@@ -49,6 +59,13 @@ public class ColoredConsoleAppender extends org.apache.log4j.ConsoleAppender imp
 		}
 	}
 
+	/**
+	 * <p>inquireColor.</p>
+	 *
+	 * @param message a {@link java.lang.String} object.
+	 * @param event a {@link org.apache.log4j.spi.LoggingEvent} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	protected String inquireColor(String message, LoggingEvent event){
 		Level currentLevel = event.getLevel();
 		String format = colors.get(currentLevel);

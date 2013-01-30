@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 import com.denisneuling.binarytree.gui.dialog.RemoveNodeDialog;
 
 @Component
+/**
+ * <p>RemoveNodeMenuListener class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class RemoveNodeMenuListener  extends BaseMenuItemListener {
 	protected Logger log = Logger.getLogger(this.getClass());
 

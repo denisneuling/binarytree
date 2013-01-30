@@ -17,6 +17,12 @@ import org.springframework.stereotype.Component;
 import com.denisneuling.binarytree.gui.component.err.ErrorTile;
 
 @Component
+/**
+ * <p>ErrorDialog class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class ErrorDialog extends ConfirmDialog implements InitializingBean {
 	private static final long serialVersionUID = -1726175077914308091L;
 	protected Logger log = Logger.getLogger(this.getClass());

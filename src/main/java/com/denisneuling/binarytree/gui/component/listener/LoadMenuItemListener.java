@@ -14,6 +14,12 @@ import com.denisneuling.binarytree.model.Tree;
 import com.denisneuling.binarytree.service.BinaryTreeMaterializationService;
 
 @Component
+/**
+ * <p>LoadMenuItemListener class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class LoadMenuItemListener extends BaseMenuItemListener {
 	protected Logger log = Logger.getLogger(this.getClass());
 

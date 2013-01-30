@@ -12,6 +12,12 @@ import com.denisneuling.binarytree.model.Tree;
 import com.denisneuling.binarytree.service.BinaryTreeService;
 
 @Component
+/**
+ * <p>NewRandomMenuListener class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class NewRandomMenuListener extends BaseMenuItemListener {
 	protected Logger log = Logger.getLogger(this.getClass());
 	

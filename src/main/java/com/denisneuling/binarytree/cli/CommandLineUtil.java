@@ -3,10 +3,23 @@ package com.denisneuling.binarytree.cli;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>CommandLineUtil class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class CommandLineUtil {
 
+	/** Constant <code>PREFIX="--"</code> */
 	public static String PREFIX = "--";
 
+	/**
+	 * <p>parseArgs.</p>
+	 *
+	 * @param args an array of {@link java.lang.String} objects.
+	 * @return a {@link java.util.Map} object.
+	 */
 	public static Map<String, String> parseArgs(String[] args) {
 		Map<String, String> argt = new HashMap<String, String>();
 

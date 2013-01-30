@@ -14,6 +14,12 @@ import org.springframework.stereotype.Component;
 import com.denisneuling.binarytree.gui.MainFrame;
 
 @Component
+/**
+ * <p>BinaryTreeFileChoser class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class BinaryTreeFileChoser extends JFileChooser implements InitializingBean{
 	private static final long serialVersionUID = -745612620514950704L;
 	protected Logger log = Logger.getLogger(this.getClass());
@@ -24,6 +30,7 @@ public class BinaryTreeFileChoser extends JFileChooser implements InitializingBe
 	@Autowired
 	private MainFrame mainFrame;
 	
+	/** {@inheritDoc} */
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		FileFilter filter = new FileFilter() {
@@ -40,6 +47,11 @@ public class BinaryTreeFileChoser extends JFileChooser implements InitializingBe
 		setFileFilter(filter);
 	}
 	
+	/**
+	 * <p>showLoadDialog.</p>
+	 *
+	 * @return a {@link java.io.File} object.
+	 */
 	public File showLoadDialog(){
 		this.setDialogType(JFileChooser.OPEN_DIALOG);
 		int returnVal = this.showOpenDialog(mainFrame); 
@@ -51,6 +63,11 @@ public class BinaryTreeFileChoser extends JFileChooser implements InitializingBe
 		return null;
 	}
 	
+	/**
+	 * <p>showSaveDialog.</p>
+	 *
+	 * @return a {@link java.io.File} object.
+	 */
 	public File showSaveDialog(){
 		this.setDialogType(JFileChooser.SAVE_DIALOG);
 		int returnVal = this.showSaveDialog(mainFrame); 

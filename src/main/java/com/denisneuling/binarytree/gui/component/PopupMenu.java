@@ -6,6 +6,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
+/**
+ * <p>PopupMenu class.</p>
+ *
+ * @author Denis Neuling (denisneuling@gmail.com)
+ * 
+ */
 public class PopupMenu extends JPopupMenu /*implements ActionListener,InitializingBean*/{
 	private static final long serialVersionUID = -5478903794243320305L;
 	protected Logger log = Logger.getLogger(this.getClass());
